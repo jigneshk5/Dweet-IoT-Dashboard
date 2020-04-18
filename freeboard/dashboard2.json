@@ -1,0 +1,204 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "LDR VALUE",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "datasources[\"DWEET\"][\"with\"][0][\"content\"][\"ldr\"]",
+						"sparkline": true,
+						"animate": true
+					}
+				}
+			]
+		},
+		{
+			"title": "UNTRASONIC VALUE",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "datasources[\"DWEET\"][\"with\"][0][\"content\"][\"dist\"]",
+						"sparkline": true,
+						"animate": true
+					}
+				}
+			]
+		},
+		{
+			"title": "TOGGLE RED",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "actuator",
+					"settings": {
+						"urlOn": "https://dweet.io/dweet/for/nodemcu_static?redled=1",
+						"urlOff": "https://dweet.io/dweet/for/nodemcu_static?redled=0",
+						"on_text": "TURN ON",
+						"off_text": "TURN OFF"
+					}
+				}
+			]
+		},
+		{
+			"title": "TOGGLE GREEN",
+			"width": 1,
+			"row": {
+				"3": 5
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "actuator",
+					"settings": {
+						"urlOn": "https://dweet.io/dweet/for/nodemcu_static?greenled=1",
+						"urlOff": "https://dweet.io/dweet/for/nodemcu_static?greenled=1",
+						"on_text": "TURN ON",
+						"off_text": "TURN OFF"
+					}
+				}
+			]
+		},
+		{
+			"title": "BRIGHTNESS",
+			"width": 1,
+			"row": {
+				"3": 7
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"value": "datasources[\"DWEET\"][\"with\"][0][\"content\"][\"ldr\"]",
+						"min_value": "100",
+						"max_value": "700"
+					}
+				}
+			]
+		},
+		{
+			"title": "DISTANCE",
+			"width": 1,
+			"row": {
+				"3": 7
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"value": "datasources[\"DWEET\"][\"with\"][0][\"content\"][\"dist\"]",
+						"min_value": 0,
+						"max_value": "400"
+					}
+				}
+			]
+		},
+		{
+			"title": "SET SERVO",
+			"width": 1,
+			"row": {
+				"3": 9
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "slider_plugin",
+					"settings": {
+						"min": "0",
+						"max": "180",
+						"url": "https://dweet.io/dweet/for/nodemcu_static?slider=%VALUE%"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 15
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 3,
+			"widgets": [
+				{
+					"type": "highcharts-timeseries",
+					"settings": {
+						"timeframe": "10",
+						"blocks": "6",
+						"chartType": "area",
+						"xaxis": "{\"title\":{\"text\" : \"Time\"}, \"type\": \"datetime\", \"floor\":0}",
+						"yaxis": "{\"title\":{\"text\" : \"Values\"}, \"minorTickInterval\":\"auto\", \"floor\":0}",
+						"series1": "datasources[\"DWEET\"][\"with\"][0][\"content\"][\"ldr\"]",
+						"series1label": "BRIGHTNESS",
+						"series2": "datasources[\"DWEET\"][\"with\"][0][\"content\"][\"dist\"]",
+						"series2label": "DISTANCE"
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "dweet_api",
+			"type": "dweet_io",
+			"settings": {
+				"thing_id": "nodemcu_dynamic"
+			}
+		},
+		{
+			"name": "DWEET",
+			"type": "JSON",
+			"settings": {
+				"url": "https://dweet.io/get/latest/dweet/for/nodemcu_dynamic",
+				"use_thingproxy": true,
+				"refresh": 10,
+				"method": "GET"
+			}
+		}
+	],
+	"columns": 3
+}
